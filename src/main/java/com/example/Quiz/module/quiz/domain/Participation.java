@@ -33,6 +33,12 @@ public class Participation {
         this.score = score;
     }
 
+    public Participation(Quiz quiz, Long participant_id, Long score) {
+        this.quiz = quiz;
+        this.participant_id = participant_id;
+        this.score = score;
+    }
+
     public Long getId() {
         return id;
     }

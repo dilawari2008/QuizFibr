@@ -4,20 +4,20 @@ import java.util.List;
 
 public class ParticipationDto {
 
-    private String username;
+    private String participantName;
     private List<AnswerDto> answers;
 
-    public ParticipationDto(String username, List<AnswerDto> answers) {
-        this.username = username;
+    public ParticipationDto(String participantName, List<AnswerDto> answers) {
+        this.participantName = participantName;
         this.answers = answers;
     }
 
-    public String getUsername() {
-        return username;
+    public String getParticipantName() {
+        return participantName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setParticipantName(String participantName) {
+        this.participantName = participantName;
     }
 
     public List<AnswerDto> getAnswers() {

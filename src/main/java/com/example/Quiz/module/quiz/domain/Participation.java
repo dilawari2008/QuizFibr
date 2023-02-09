@@ -15,7 +15,7 @@ public class Participation {
     @ManyToOne(fetch = FetchType.LAZY)
     private Quiz quiz;
 
-    private Long participant_id;
+    private String participantName;
 
     private Long score;
 
@@ -26,16 +26,16 @@ public class Participation {
     public Participation() {
     }
 
-    public Participation(Long id, Quiz quizId, Long participant_id, Long score) {
+    public Participation(Long id, Quiz quizId, String participantName, Long score) {
         this.id = id;
         this.quiz = quizId;
-        this.participant_id = participant_id;
+        this.participantName = participantName;
         this.score = score;
     }
 
-    public Participation(Quiz quiz, Long participant_id, Long score) {
+    public Participation(Quiz quiz, String participantName, Long score) {
         this.quiz = quiz;
-        this.participant_id = participant_id;
+        this.participantName = participantName;
         this.score = score;
     }
 
@@ -55,12 +55,12 @@ public class Participation {
         this.quiz = quiz;
     }
 
-    public Long getParticipant_id() {
-        return participant_id;
+    public String getParticipant_id() {
+        return participantName;
     }
 
-    public void setParticipant_id(Long participant_id) {
-        this.participant_id = participant_id;
+    public void setParticipant_id(String participantName) {
+        this.participantName = participantName;
     }
 
     public Long getScore() {

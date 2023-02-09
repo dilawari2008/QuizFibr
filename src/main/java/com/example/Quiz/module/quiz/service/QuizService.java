@@ -45,8 +45,8 @@ public class QuizService {
     }
 
     public ResponseEntity evaluateQuiz(String code, ParticipationDto participationDto) {
-        User user = userRepository.getUserByUsername(participationDto.getUsername());
-        if(user == null) return new ResponseEntity("username " + participationDto.getUsername() + " does not exist", HttpStatus.BAD_REQUEST);
+        if(participationDto == null || participationDto.getParticipantName()==null || participationDto.getParticipantName().isEmpty())
+            return new ResponseEntity("participantName " + participationDto.getParticipantName() + " empty/invalid", HttpStatus.BAD_REQUEST);
         Quiz quiz = quizRepository.getQuizByCode(code);
         if(quiz == null) return new ResponseEntity("quiz code " + code + " does not exist", HttpStatus.BAD_REQUEST);
         Map<Long, Boolean> isQnAnswered = new HashMap<>();
@@ -79,7 +79,7 @@ public class QuizService {
             }
         }
 
-        Participation participation = new Participation(quiz, user.getId(), score);
+        Participation participation = new Participation(quiz, participationDto.getParticipantName(), score);
         participationRepository.save(participation);
 
 

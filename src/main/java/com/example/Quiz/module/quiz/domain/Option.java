@@ -16,6 +16,8 @@ public class Option {
 
     private String option;
 
+    private Long optionNum;
+
     @JsonProperty(value="isAns")
     private boolean isAns;
 
@@ -25,11 +27,12 @@ public class Option {
     public Option() {
     }
 
-    public Option(Long id, String option, boolean isAns, Question questionId) {
+    public Option(Long id, String option, Long optionNum, boolean isAns, Question question) {
         this.id = id;
         this.option = option;
+        this.optionNum = optionNum;
         this.isAns = isAns;
-        this.question = questionId;
+        this.question = question;
     }
 
     public Long getId() {
@@ -48,7 +51,15 @@ public class Option {
         this.option = option;
     }
 
-    public boolean getAns() {
+    public Long getOptionNum() {
+        return optionNum;
+    }
+
+    public void setOptionNum(Long optionNum) {
+        this.optionNum = optionNum;
+    }
+
+    public boolean isAns() {
         return isAns;
     }
 

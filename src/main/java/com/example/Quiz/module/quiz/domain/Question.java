@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,9 +16,11 @@ public class Question {
 
     private String question;
 
+    private Long qnNum;
+
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonIgnoreProperties("question")
-    private Set<Option> options;
+    private List<Option> options;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Quiz quiz;
@@ -25,11 +28,12 @@ public class Question {
     public Question() {
     }
 
-    public Question(Long id, String question, Set<Option> options, Quiz quizId) {
+    public Question(Long id, String question, Long qnNum, List<Option> options, Quiz quiz) {
         this.id = id;
         this.question = question;
+        this.qnNum = qnNum;
         this.options = options;
-        this.quiz = quizId;
+        this.quiz = quiz;
     }
 
     public Long getId() {
@@ -48,11 +52,19 @@ public class Question {
         this.question = question;
     }
 
-    public Set<Option> getOptions() {
+    public Long getQnNum() {
+        return qnNum;
+    }
+
+    public void setQnNum(Long qnNum) {
+        this.qnNum = qnNum;
+    }
+
+    public List<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(Set<Option> options) {
+    public void setOptions(List<Option> options) {
         this.options = options;
     }
 

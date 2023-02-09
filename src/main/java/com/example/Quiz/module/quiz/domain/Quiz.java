@@ -25,16 +25,16 @@ public class Quiz {
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonIgnoreProperties("quiz")
-    private Set<Question> questions;
+    private List<Question> questions;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Set<Participation> participations;
+    private List<Participation> participations;
 
     public Quiz() {
     }
 
-    public Quiz(Long id, Long creatorId, String code, String title, Set<Question> questions, Set<Participation> participations) {
+    public Quiz(Long id, Long creatorId, String code, String title, List<Question> questions, List<Participation> participations) {
         this.id = id;
         this.creatorId = creatorId;
         this.code = code;
@@ -75,19 +75,19 @@ public class Quiz {
         this.title = title;
     }
 
-    public Set<Question> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Set<Question> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
-    public Set<Participation> getParticipations() {
+    public List<Participation> getParticipations() {
         return participations;
     }
 
-    public void setParticipations(Set<Participation> participations) {
+    public void setParticipations(List<Participation> participations) {
         this.participations = participations;
     }
 

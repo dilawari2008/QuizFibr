@@ -19,6 +19,7 @@ public class Option {
     @Column(name = "option_num")
     private Long optionNum;
 
+    @JsonProperty(value="isAns")
     private boolean isAns;
 
     @ManyToOne(fetch = FetchType.LAZY)

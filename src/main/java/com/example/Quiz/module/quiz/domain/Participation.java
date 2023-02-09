@@ -1,5 +1,7 @@
 package com.example.Quiz.module.quiz.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,6 +9,7 @@ public class Participation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

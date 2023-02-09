@@ -1,7 +1,9 @@
 package com.example.Quiz.module.quiz.domain;
 
 import com.example.Quiz.module.user.User;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Set;
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
 
     private Long creatorId;
@@ -25,6 +28,7 @@ public class Quiz {
     private Set<Question> questions;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Participation> participations;
 
     public Quiz() {

@@ -37,6 +37,7 @@ public class QuizService {
 
     public ResponseEntity<QuizDto> getQuizByCode( String code){
         Quiz quiz = quizRepository.getQuizByCode(code);
+        if(quiz == null) return new ResponseEntity("quiz code " + code + " does not exist", HttpStatus.BAD_REQUEST);
         QuizDto quizDto = new QuizDto(quiz);
         return ResponseEntity.ok(quizDto);
     }

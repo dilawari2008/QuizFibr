@@ -10,7 +10,9 @@ public class Participation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long quiz_id;
+    @ManyToOne
+    @JoinColumn(name = "quiz_id" , referencedColumnName = "id")
+    private Quiz quizId;
 
     private Long participant_id;
 

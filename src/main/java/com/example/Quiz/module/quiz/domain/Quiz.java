@@ -21,9 +21,6 @@ public class Quiz {
     @OneToMany(mappedBy = "quizId", fetch = FetchType.EAGER)
     private List<Question> questions;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "quiz_participants",
-            joinColumns = {@JoinColumn(name = "quiz_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "participant_id", referencedColumnName = "id")})
-    private List<User> participants;
+    @OneToMany(mappedBy = "quizId", fetch = FetchType.LAZY)
+    private List<Participation> participations;
 }

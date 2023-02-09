@@ -4,10 +4,7 @@ import com.example.Quiz.module.quiz.domain.Option;
 import com.example.Quiz.module.quiz.domain.Participation;
 import com.example.Quiz.module.quiz.domain.Question;
 import com.example.Quiz.module.quiz.domain.Quiz;
-import com.example.Quiz.module.quiz.dto.AnswerDto;
-import com.example.Quiz.module.quiz.dto.ParticipationDto;
-import com.example.Quiz.module.quiz.dto.QuestionDto;
-import com.example.Quiz.module.quiz.dto.QuizDto;
+import com.example.Quiz.module.quiz.dto.*;
 import com.example.Quiz.module.quiz.repository.ParticipationRepository;
 import com.example.Quiz.module.quiz.repository.QuizRepository;
 import com.example.Quiz.module.user.User;
@@ -70,7 +67,7 @@ public class QuizService {
                 Long qnNum = answer.getQnNum();
                 List<Long> options = answer.getOptions();
 
-                if(options == null || options.isEmpty()) continue;
+                if(options == null) continue;
                 if(isQnAnswered.containsKey(qnNum) && isQnAnswered.get(qnNum) == true) continue;
 
                 isQnAnswered.put(qnNum, true);
@@ -85,6 +82,13 @@ public class QuizService {
 
 
         return new ResponseEntity<>("your score is " + score + " out of " + quiz.getQuestions().size(),HttpStatus.OK);
+    }
+
+    public ResponseEntity<SubmisionsDto> getQuizSubmissionsByCode(String code){
+        Quiz quiz = quizRepository.getQuizByCode(code);
+        if(quiz == null) return new ResponseEntity("quiz code " + code + " does not exist", HttpStatus.BAD_REQUEST);
+        SubmisionsDto submisionsDto = new SubmisionsDto(quiz);
+        return new ResponseEntity<>(submisionsDto, HttpStatus.OK);
     }
 
 }

@@ -13,6 +13,7 @@ public class Participation {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Quiz quiz;
 
     private String participantName;
@@ -55,11 +56,11 @@ public class Participation {
         this.quiz = quiz;
     }
 
-    public String getParticipant_id() {
+    public String getParticipantName() {
         return participantName;
     }
 
-    public void setParticipant_id(String participantName) {
+    public void setParticipantName(String participantName) {
         this.participantName = participantName;
     }
 

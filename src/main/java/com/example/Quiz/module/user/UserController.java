@@ -1,6 +1,8 @@
 package com.example.Quiz.module.user;
 
+import com.example.Quiz.module.quiz.domain.Quiz;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +12,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/users")
-    public User addUser(@RequestBody User user){
+    public ResponseEntity<User> addUser(@RequestBody User user){
         return userService.addUser(user);
     }
 

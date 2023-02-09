@@ -25,10 +25,12 @@ public class Quiz {
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonIgnoreProperties("quiz")
+    @JoinColumn(name = "quiz_id")
     private List<Question> questions;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JoinColumn(name = "quiz_id")
     private List<Participation> participations;
 
     public Quiz() {

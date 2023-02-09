@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "quiz_id", "qn_num" }) })
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,10 +17,12 @@ public class Question {
 
     private String question;
 
+    @Column(name = "qn_num")
     private Long qnNum;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonIgnoreProperties("question")
+    @JoinColumn(name = "question_id")
     private List<Option> options;
 
     @ManyToOne(fetch = FetchType.LAZY)

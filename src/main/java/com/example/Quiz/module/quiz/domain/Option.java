@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "options")
+@Table(name = "options", uniqueConstraints = { @UniqueConstraint(columnNames = { "question_id", "option_num"}) })
 public class Option {
 
     @Id
@@ -16,9 +16,9 @@ public class Option {
 
     private String option;
 
+    @Column(name = "option_num")
     private Long optionNum;
 
-    @JsonProperty(value="isAns")
     private boolean isAns;
 
     @ManyToOne(fetch = FetchType.LAZY)

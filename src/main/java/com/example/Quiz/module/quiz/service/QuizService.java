@@ -35,6 +35,8 @@ public class QuizService {
             User user = SecurityUtils.getCurrentUser();
             if (user == null) return new ResponseEntity("User not Found!", HttpStatus.BAD_REQUEST);
             quiz.setCreatorId(user.getId());
+            Quiz quiz1 = quizRepository.getQuizByCode(quiz.getCode());
+            if(quiz1 != null) return new ResponseEntity("Quiz code exists, please change the quiz code!",HttpStatus.BAD_REQUEST);
             quizRepository.save(quiz);
             return ResponseEntity.ok(quiz);
         } catch (DataIntegrityViolationException e) {

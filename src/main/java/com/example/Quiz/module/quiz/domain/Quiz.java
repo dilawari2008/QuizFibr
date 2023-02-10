@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -14,14 +15,17 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
     private Long creatorId;
 
-    @Column(unique=true)
+    @Column(unique=true, nullable = false)
     private String code;
 
+    @Column(nullable = false)
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)

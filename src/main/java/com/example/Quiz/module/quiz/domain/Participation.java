@@ -10,14 +10,17 @@ public class Participation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Quiz quiz;
 
+    @Column(nullable = false)
     private String participantName;
 
+    @Column(nullable = false)
     private Long score;
 
     //for storing answers of each submission

@@ -1,6 +1,5 @@
 package com.example.Quiz.module.quiz.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -12,11 +11,13 @@ public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
     private Long id;
 
+    @Column(nullable = false)
     private String option;
 
-    @Column(name = "option_num")
+    @Column(name = "option_num", nullable = false)
     private Long optionNum;
 
     @JsonProperty(value="isAns")

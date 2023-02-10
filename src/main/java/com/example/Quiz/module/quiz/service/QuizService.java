@@ -11,6 +11,7 @@ import com.example.Quiz.module.user.User;
 import com.example.Quiz.module.user.UserRepository;
 import com.example.Quiz.module.user.auth.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,15 @@ public class QuizService {
     private ParticipationRepository participationRepository;
 
     public ResponseEntity<Quiz> addQuiz(Quiz quiz){
-        User user = SecurityUtils.getCurrentUser();
-        if(user == null) return new ResponseEntity("User not Found!", HttpStatus.BAD_REQUEST);
-        quiz.setCreatorId(user.getId());
-        quizRepository.save(quiz);
-        return ResponseEntity.ok(quiz);
+        try {
+            User user = SecurityUtils.getCurrentUser();
+            if (user == null) return new ResponseEntity("User not Found!", HttpStatus.BAD_REQUEST);
+            quiz.setCreatorId(user.getId());
+            quizRepository.save(quiz);
+            return ResponseEntity.ok(quiz);
+        } catch (DataIntegrityViolationException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     public ResponseEntity<QuizDto> getQuizByCode(String code){

@@ -12,17 +12,21 @@ import java.util.Collection;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique=true, nullable = false)
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
     private String password;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
     private String token;
 
+    @Column(nullable = false)
     private String name;
 
     public User() {

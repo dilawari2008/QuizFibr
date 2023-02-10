@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "quiz_id", "qn_num" }) })
@@ -13,11 +13,13 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
     private Long id;
 
+    @Column(nullable = false)
     private String question;
 
-    @Column(name = "qn_num")
+    @Column(name = "qn_num", nullable = false)
     private Long qnNum;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)

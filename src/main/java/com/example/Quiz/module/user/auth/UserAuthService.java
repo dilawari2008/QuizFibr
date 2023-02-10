@@ -4,10 +4,11 @@ import com.example.Quiz.module.user.User;
 import com.example.Quiz.module.user.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import java.util.UUID;
@@ -18,10 +19,10 @@ public class UserAuthService {
     private UserRepository userRepository;
 
     public String login(String username, String password) {
-        Optional user = userRepository.login(username,password);
+        Optional user = userRepository.login(username,encryptPass(password));
         if(user.isPresent()){
             String token = UUID.randomUUID().toString();
-            com.example.Quiz.module.user.User user1= (com.example.Quiz.module.user.User) user.get();
+            User user1= (User) user.get();
             user1.setToken(token);
             userRepository.save(user1);
             return token;
@@ -32,7 +33,7 @@ public class UserAuthService {
 
     @Transactional
     public String register(String username, String password, String name) {
-        User user = new User(username, password, name);
+        User user = new User(username, encryptPass(password), name);
         userRepository.save(user);
         return login(username, password);
     }
@@ -45,4 +46,22 @@ public class UserAuthService {
         }
         return  Optional.empty();
     }
+
+    private String encryptPass(String password) {
+        String encryptedpassword = null;
+        try
+        {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(password.getBytes());
+            byte[] bytes = m.digest();
+            StringBuilder s = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            encryptedpassword = s.toString();
+            return encryptedpassword;
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
 }

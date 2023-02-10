@@ -4,6 +4,7 @@ import com.example.Quiz.module.user.User;
 import com.example.Quiz.module.user.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,8 @@ public class UserAuthService {
     @Transactional
     public String register(String username, String password, String name) {
         User user = new User(username, encryptPass(password), name);
+        User user1 = userRepository.getUserByUsername(username);
+        if(user1 != null) throw new BadCredentialsException("username has to be different");
         userRepository.save(user);
         return login(username, password);
     }

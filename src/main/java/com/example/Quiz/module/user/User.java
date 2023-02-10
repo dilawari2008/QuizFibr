@@ -1,5 +1,7 @@
 package com.example.Quiz.module.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +14,22 @@ public class User {
     @Column(unique=true)
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String token;
+
     private String name;
+
+    public User() {
+    }
+
+    public User(String username, String password, String name) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -32,5 +49,25 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

@@ -1,10 +1,10 @@
 package com.example.Quiz.module.user.auth;
 
+import com.example.Quiz.module.user.User;
 import com.example.Quiz.module.user.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +32,7 @@ public class UserAuthService {
 
     @Transactional
     public String register(String username, String password, String name) {
-        com.example.Quiz.module.user.User user = new com.example.Quiz.module.user.User(username, password, name);
+        User user = new User(username, password, name);
         userRepository.save(user);
         return login(username, password);
     }
@@ -40,10 +40,8 @@ public class UserAuthService {
     public Optional findByToken(String token) {
         Optional user= userRepository.findByToken(token);
         if(user.isPresent()){
-            com.example.Quiz.module.user.User user1 = (com.example.Quiz.module.user.User) user.get();
-            org.springframework.security.core.userdetails.User user2= new User(user1.getUsername(), user1.getPassword(), true, true, true, true,
-                    AuthorityUtils.createAuthorityList("USER"));
-            return Optional.of(user2);
+            User user1 = (User) user.get();
+            return Optional.of(user1);
         }
         return  Optional.empty();
     }

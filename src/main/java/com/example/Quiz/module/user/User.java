@@ -23,7 +23,6 @@ public class User implements UserDetails {
     private String password;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(nullable = false)
     private String token;
 
     @Column(nullable = false)

@@ -98,5 +98,15 @@ public class Quiz {
         this.participations = participations;
     }
 
-
+    @Override
+    public String toString() {
+        return "Quiz{" +
+                "id=" + id +
+                ", creatorId=" + creatorId +
+                ", code='" + code + '\'' +
+                ", title='" + title + '\'' +
+                ", questions=" + questions +
+                ", participations=" + participations +
+                '}';
+    }
 }

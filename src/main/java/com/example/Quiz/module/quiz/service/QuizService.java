@@ -9,12 +9,11 @@ import com.example.Quiz.module.quiz.repository.ParticipationRepository;
 import com.example.Quiz.module.quiz.repository.QuizRepository;
 import com.example.Quiz.module.user.User;
 import com.example.Quiz.module.user.UserRepository;
+import com.example.Quiz.module.user.auth.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
 
@@ -31,11 +30,14 @@ public class QuizService {
     private ParticipationRepository participationRepository;
 
     public ResponseEntity<Quiz> addQuiz(Quiz quiz){
+        User user = SecurityUtils.getCurrentUser();
+        if(user == null) return new ResponseEntity("User not Found!", HttpStatus.BAD_REQUEST);
+        quiz.setCreatorId(user.getId());
         quizRepository.save(quiz);
         return ResponseEntity.ok(quiz);
     }
 
-    public ResponseEntity<QuizDto> getQuizByCode( String code){
+    public ResponseEntity<QuizDto> getQuizByCode(String code){
         Quiz quiz = quizRepository.getQuizByCode(code);
         if(quiz == null) return new ResponseEntity("quiz code " + code + " does not exist", HttpStatus.BAD_REQUEST);
         QuizDto quizDto = new QuizDto(quiz);
@@ -86,7 +88,9 @@ public class QuizService {
     }
 
     public ResponseEntity<SubmisionsDto> getQuizSubmissionsByCode(String code){
-        Quiz quiz = quizRepository.getQuizByCode(code);
+        User user = SecurityUtils.getCurrentUser();
+        if(user == null) return new ResponseEntity("User not Found!", HttpStatus.BAD_REQUEST);
+        Quiz quiz = quizRepository.getQuizByCodeAndCreatorId(code, user.getId());
         if(quiz == null) return new ResponseEntity("quiz code " + code + " does not exist", HttpStatus.BAD_REQUEST);
         SubmisionsDto submisionsDto = new SubmisionsDto(quiz);
         return new ResponseEntity<>(submisionsDto, HttpStatus.OK);

@@ -10,4 +10,7 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
     @Query(value = "select c from Quiz c where c.code = ?1")
     Quiz getQuizByCode(String code);
+
+    @Query(value = "select c from Quiz c where c.code = ?1 and c.creatorId = ?2")
+    Quiz getQuizByCodeAndCreatorId(String code, Long creatorId);
 }

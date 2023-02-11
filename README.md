@@ -9,7 +9,7 @@ file:///home/vagish/Pictures/register.png![image](https://user-images.githubuser
 file:///home/vagish/Pictures/login.png![image](https://user-images.githubusercontent.com/40742522/218109464-a0375e71-92c9-4976-9edd-e29bb482871d.png)
 
 
-#### 3. create quiz - quiz code has to be unique, authenticate using the token provided after the most recent login
+#### 3. create quiz - quiz code has to be unique for every quiz, authenticate using the token provided after the most recent login
 file:///home/vagish/Pictures/create%20quiz1.png![image](https://user-images.githubusercontent.com/40742522/218109512-62a8c18f-4031-4723-821a-85330616ca83.png)
 file:///home/vagish/Pictures/create%20quiz%202.png![image](https://user-images.githubusercontent.com/40742522/218109547-8b395379-77c1-4a02-9ee8-6b5cbaeae6e6.png)
 
